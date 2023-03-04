@@ -12,3 +12,5 @@ public:
     void feedforward();                          // Given some input (current value of _internal_state._input), recalculate the output
     void backpropogate(vector<double> expected); // Given the expected value for a particular input, tune the parameters so that the predicted value approaches the expected value
 };
+
+// test
