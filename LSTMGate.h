@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <iostream>
-#include <cmath>
+#include <math.h>
 #include <vector>
 using namespace std;
 
@@ -44,8 +44,9 @@ private:
 
 public:
     // Functions for each class to overload
-    virtual void feedforward();                          // Given some input, recalculate the output
-    virtual void backpropogate(vector<double> expected); // Given the expected value for a particular input, tune the parameters so that the predicted value approaches the expected value
+    // Pure virtual functions - no base class defintions (=0)
+    virtual void feedforward() = 0;                          // Given some input, recalculate the output
+    virtual void backpropogate(vector<double> expected) = 0; // Given the expected value for a particular input, tune the parameters so that the predicted value approaches the expected value
 
     // General member variable getters/setters
     // Getters
@@ -61,3 +62,24 @@ public:
     // Allow updating the weights/biases by incremental changes, not setting directly
     void increment_tunable(int feature, int index, double inc_amt);
 };
+
+// Overload vector multiplication
+template <typename T>
+vector<T> operator*(const vector<T> rhs)
+{
+    // Multiplication element-wise
+    for (size_t i = 0; i < rhs.size(); i++)
+    {
+        this.at(i) = this.at(i) * rhs.at(i);
+    }
+
+    // return vector
+    return *this;
+}
+
+// Helper functions
+// fast sigmoid
+double sigmoid(double x)
+{
+    return 1 / (1 + exp(-x));
+}
