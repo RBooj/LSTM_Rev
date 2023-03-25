@@ -23,31 +23,44 @@ void ForgetGate::feedforward()
     vector<double> hidden_state = get_hidden_state();
     vector<double> hidden_weight = get_state_weight();
     vector<double> bias = get_bias();
+    int batch_size = get_batch_size();
 
     // Perform math
 
     /*
         Questions:
             Are the internal state vectors (input, hidden state, ect) all the same size?
+                They must be the same size in order to be added element-wise
             What determines the dimensions of the internal state vectors?
 
     */
 
     // Input
-    for (size_t i = 0; i < input.size(); i++)
+    vector<double> weighted_input;
+    for (size_t i = 0; i < batch_size; i++)
     {
-        /* code */
+        weighted_input.push_back(input.at(i) * input_weight.at(i));
     }
 
     // Hidden State
-    for (size_t i = 0; i < hidden_state.size(); i++)
+    vector<double> weighted_state;
+    for (size_t i = 0; i < batch_size; i++)
     {
-        /* code */
+        weighted_state.push_back(hidden_state.at(i) * hidden_weight.at(i));
     }
 
     // Add bias
+    vector<double> biased_sum;
+    for (size_t i = 0; i < batch_size; i++)
+    {
+        biased_sum.push_back(weighted_input.at(i) + weighted_state.at(i) + bias.at(i));
+    }
 
-    // Save output value(s)
+    // Calculate activation function(sigmoid)
+    for (size_t i = 0; i < batch_size; i++)
+    {
+        _forget_result.push_back(sigmoid(biased_sum.at(i)));
+    }
 
     // Update Cell state
 }

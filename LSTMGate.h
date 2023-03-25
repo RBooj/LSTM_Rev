@@ -34,6 +34,9 @@ struct LSTMData
     vector<double> &_input_weight; // Weights that are multiplied with the input value
     vector<double> &_state_weight; // Weights that are multiplied with the internal state value used in each specific gate
     vector<double> &_bias;         // Bias value to add to the result
+
+    // Store the guaranteed size of the data
+    int _batch_size;
 };
 
 class LSTMGate
@@ -57,6 +60,7 @@ public:
     vector<double> &get_input_weight();
     vector<double> &get_state_weight();
     vector<double> &get_bias();
+    size_t get_batch_size();
 
     // Weights and biases
     // Allow updating the weights/biases by incremental changes, not setting directly

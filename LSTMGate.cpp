@@ -39,6 +39,11 @@ vector<double> &LSTMGate::get_bias()
 {
     return _internal_state._bias;
 }
+
+size_t LSTMGate::get_batch_size()
+{
+    return _internal_state._batch_size;
+}
 // =================================================
 
 // Increment tunable parameters function
